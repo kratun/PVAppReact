@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
-import { Route, Redirect, Switch } from 'react-router-dom'
+import { Route, Redirect, Switch, BrowserRouter} from 'react-router-dom'
 
 import AppContext from './AppContext';
 import NotFound from '../not-found';
 import Home from '../home';
 import Register from '../user/register';
 import Login from '../user/login';
+import ProjectCreate from '../pages/projects/project-create'
 
 const PrivateRoute = ({
     component: Component,
@@ -31,23 +32,23 @@ const PrivateRoute = ({
 const AppRoutes = () => {
     
     const { isLoggedIn } = useContext(AppContext);
-
+    console.log('routes',isLoggedIn)
     return (
-        
+        <BrowserRouter>
             <Switch>
                 <Route path="/" exact component={Home} />
                 
-                {/* <PrivateRoute allowed={isLoggedIn} path="/projects" component={AllProjects} />
+                {/* <PrivateRoute allowed={isLoggedIn} path="/projects" component={AllProjects} /> */}
                 <PrivateRoute allowed={isLoggedIn} path="/project/create" component={ProjectCreate} />
-                <PrivateRoute allowed={isLoggedIn} path="/project/edit/:id" component={ProjectEdit} />
-                <PrivateRoute allowed={isLoggedIn} path="/project/details/:id" component={ProjectDetails} /> */}
+                {/* <PrivateRoute allowed={isLoggedIn} path="/project/edit/:id" component={ProjectEdit} /> */}
+                {/* <PrivateRoute allowed={isLoggedIn} path="/project/details/:id" component={ProjectDetails} /> */}
 
                 <PrivateRoute allowed={!isLoggedIn} path="/register" component={Register} />
                 <PrivateRoute allowed={!isLoggedIn} path="/login" component={Login} />
 
                 <Route path="*" component={NotFound} />
             </Switch>
-        
+        </BrowserRouter>
     );
 };
 

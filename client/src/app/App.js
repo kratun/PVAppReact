@@ -8,7 +8,6 @@ import "mdbreact/dist/css/mdb.css";
 import { AppProvider, appContextInitialState } from './AppContext';
 
 import AppRoutes from './AppRoutes';
-import Navigation from '../navigation/navigation';
 
 import { hasTokenSet } from '../services/auth-service';
 
@@ -19,9 +18,9 @@ const App = () => {
   return (
     <div className="App">
       <AppProvider value={initialState}>
-          <Navigation />
+          
           <AppRoutes />
-          <footer>FOOTER</footer>
+          
       </AppProvider>
     </div>
   );
