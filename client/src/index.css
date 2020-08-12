@@ -1,0 +1,8 @@
+* {
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+.slick-prev:before,
+.slick-next:before {
+    color: blue !important;
+}
