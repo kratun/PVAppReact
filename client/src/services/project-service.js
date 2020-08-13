@@ -1,5 +1,5 @@
 import {API_BASE_URL} from '../utils/db-constants'
-import { get, post } from './http-service';
+import { get, post, put } from './http-service';
 
 
 /**
@@ -34,4 +34,39 @@ export const GetAllProjects = (limit = 10) => {
   } catch (ex) {
     console.log(ex);
   }
+};
+
+/**
+ * Get project detailed information
+ * @name getRestaurantDetails
+ * @param {String} id The id of the project
+ */
+export const GetProjectDetails = (id) => {
+  try {
+    const endpoint = `${API_BASE_URL}/projects/${id}.json`;
+    const response = get(endpoint);
+  
+    return response;
+  } catch (ex) {
+    console.log(ex);
+  }
+};
+
+/**
+ * Edit project
+ * @param {String} title The title of the edited project
+ * @param {String} description The description of the edited project
+ * @param {String} imgUrl The imageU url of the edited project
+ * @param {Number} amount The amount of the edited project
+ * @param {Boolean} isDeteted Is the project deleted
+ * @param {Date} createdAt The date of the project creation
+ * @param {String} id The id of the edited project
+ */
+export const EditProject = (data, id) => {
+  
+  const endpoint = `${API_BASE_URL}/projects/${id}.json`;
+  
+  const response = put(endpoint, data);
+  
+  return response;
 };
