@@ -7,6 +7,7 @@ import Home from '../home';
 import Register from '../user/register';
 import Login from '../user/login';
 import ProjectCreate from '../pages/projects/project-create'
+import AllProjects from '../pages/projects/all-projects'
 
 const PrivateRoute = ({
     component: Component,
@@ -38,7 +39,7 @@ const AppRoutes = () => {
             <Switch>
                 <Route path="/" exact component={Home} />
                 
-                {/* <PrivateRoute allowed={isLoggedIn} path="/projects" component={AllProjects} /> */}
+                <PrivateRoute allowed={isLoggedIn} path="/projects" component={AllProjects} />
                 <PrivateRoute allowed={isLoggedIn} path="/project/create" component={ProjectCreate} />
                 {/* <PrivateRoute allowed={isLoggedIn} path="/project/edit/:id" component={ProjectEdit} /> */}
                 {/* <PrivateRoute allowed={isLoggedIn} path="/project/details/:id" component={ProjectDetails} /> */}

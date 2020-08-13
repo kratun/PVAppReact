@@ -1,5 +1,5 @@
 import {API_BASE_URL} from '../utils/db-constants'
-import { post } from './http-service';
+import { get, post } from './http-service';
 
 
 /**
@@ -18,4 +18,20 @@ export const AddProject = (data) => {
   const response = post(endpoint, data);
   
   return response;
+};
+
+/**
+ * Get collection of projects
+ * @name GetAllProjects
+ * @param {Number|String} limit Get only first N entries
+ */
+export const GetAllProjects = (limit = 10) => {
+  try {
+    const endpoint = `${API_BASE_URL}/projects.json?&limit=${limit}`;
+    const response = get(endpoint);
+
+    return response;
+  } catch (ex) {
+    console.log(ex);
+  }
 };
