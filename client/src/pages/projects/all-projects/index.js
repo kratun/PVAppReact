@@ -75,7 +75,7 @@ const AllProjects = () => {
 
   return (
     <PageLayout>
-        <MDBContainer>
+        <MDBContainer className={styles['padding-bottom']}>
             <MDBRow className="no-gutters" center>
               <MDBCol md="12" className="my-3 mx-auto">
                 <MDBNavLink to="/project/create" className={styles.link}>
