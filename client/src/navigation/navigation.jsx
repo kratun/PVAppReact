@@ -31,7 +31,7 @@ const Navigation = () => {
                                 </MDBNavItem>
 
                                 <MDBNavItem>
-                                    <MDBNavLink to="/project/create">Add projects</MDBNavLink>
+                                    <MDBNavLink to="/calculator">Calculator</MDBNavLink>
                                 </MDBNavItem>
 
                                 <MDBNavItem>

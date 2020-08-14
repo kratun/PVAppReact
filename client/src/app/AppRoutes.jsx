@@ -10,6 +10,9 @@ import ProjectCreate from '../pages/projects/project-create'
 import AllProjects from '../pages/projects/all-projects'
 import ProjectEdit from '../pages/projects/project-edit'
 import ProjectDetails from '../pages/projects/project-details'
+import Calculator from '../pages/calculator/calculation'
+// import CalculatorInput from '../components/calculator/inputs'
+// import CalculatorResult from '../components/calculator/result'
 
 const PrivateRoute = ({
     component: Component,
@@ -35,7 +38,7 @@ const PrivateRoute = ({
 const AppRoutes = () => {
     
     const { isLoggedIn } = useContext(AppContext);
-    console.log('routes',isLoggedIn)
+    
     return (
         <BrowserRouter>
             <Switch>
@@ -45,7 +48,8 @@ const AppRoutes = () => {
                 <PrivateRoute allowed={isLoggedIn} path="/project/create" component={ProjectCreate} />
                 <PrivateRoute allowed={isLoggedIn} path="/project/edit/:id" component={ProjectEdit} />
                 <PrivateRoute allowed={isLoggedIn} path="/project/details/:id" component={ProjectDetails} />
-
+                <PrivateRoute allowed={isLoggedIn} path="/calculator" component={Calculator} />
+                
                 <PrivateRoute allowed={!isLoggedIn} path="/register" component={Register} />
                 <PrivateRoute allowed={!isLoggedIn} path="/login" component={Login} />
 

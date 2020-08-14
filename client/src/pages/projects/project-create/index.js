@@ -10,7 +10,7 @@ import { AddProject } from '../../../services/project-service'
 const ProjectCreate = (props) => {
   const [projectsData, setProjectsData] = useState({});
   const history = useHistory();
-  console.log('ProjectCreate')
+  
   const updateFeildsData = ({ target }) => {
     
     const { name, value } = target;

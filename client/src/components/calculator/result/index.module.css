@@ -1,0 +1,12 @@
+.justify-content-between,
+.card-img-top,
+span {
+    cursor: pointer;
+}
+.top-margin{
+    padding-top: 15px;
+    padding-bottom: 10px;
+}
+.padding-bottom{
+    padding-bottom: 100px;
+}
