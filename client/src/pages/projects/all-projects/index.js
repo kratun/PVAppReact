@@ -21,6 +21,7 @@ const AllProjects = () => {
   const [projectsList, setProjectsList] = useState([]);
   const [fillteredProjectsList, setFillteredProjectsList] = useState([]);
   const [search, setSearch] = useState(null);
+  const [foundProjects, setFoundProjects] = useState(null);
 
   const updateFeildsData = ({ target }) => {
     
@@ -28,21 +29,19 @@ const AllProjects = () => {
     setSearch(value);
     
     if(value){
-
       const fillteredProjects = projectsList.filter(p=>p.title.toLowerCase().includes(value.toLowerCase()))
+      
       setFillteredProjectsList(fillteredProjects)
+      
+      if(fillteredProjects.length > 0) {
+        setFoundProjects(fillteredProjects.length)
+      }
       return
     }
+
+    setFoundProjects(null)
     setFillteredProjectsList(projectsList)
   };
-
-  // const trimmedValue = ({ target }) =>{
-    
-  //   const { value } = target;
-  //   const trimmedValue = value.toString().trim();
-    
-  //   setSearch(trimmedValue);
-  // };
 
   useEffect(() => {
     // Define async in order to use await
@@ -86,6 +85,7 @@ const AllProjects = () => {
                 <MDBBtn className="white-text" color="primary">Add project</MDBBtn>
               </MDBNavLink> 
             </MDBCol>
+            
           </MDBRow>
         </MDBContainer>
         <MDBContainer className={styles['side-margins']}>
@@ -109,6 +109,14 @@ const AllProjects = () => {
                   </span>
                 </div>
               </div>
+            </MDBCol>
+            
+          </MDBRow>
+          <MDBRow className="no-gutters" center>
+            <MDBCol md="12" className="my-1 mx-auto">
+            {
+              (foundProjects)? (<span>Founded projects: {fillteredProjectsList.length}</span>):(null)
+            }
             </MDBCol>
           </MDBRow>
         </MDBContainer>

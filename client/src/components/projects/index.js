@@ -5,6 +5,7 @@ import styles from './index.module.css';
 
 const ProjectComponent = (props) => {
   //const [projectsData, setProjectsData] = useState({});
+  const [pageTitle, setPageTitle] = useState('');
   const [title, setTitle] = useState('');
   const [errorTitle, setErrorTitle] = useState(null);
   const [description, setDescription] = useState('');
@@ -17,6 +18,8 @@ const ProjectComponent = (props) => {
   useEffect(() => {
    
     const project = props.project
+    const pTitle = props.pageTitle
+    setPageTitle(pTitle)
     
     if (project) {
       console.log(project,'project')
@@ -116,7 +119,7 @@ const ProjectComponent = (props) => {
       <MDBRow className="mt-8">
         
         <MDBCol md="6 mx-auto">
-        <div className="h4 text-center my-4">Add Project Data</div>
+        <div className="h4 text-center my-4">{pageTitle}</div>
         <form onSubmit={handleSubmitCalculationInputs}> 
             <div className='form-row'>
               <div className='form-group col-md-12'>

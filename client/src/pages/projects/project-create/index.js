@@ -11,7 +11,7 @@ import ProjectComponent from '../../../components/projects'
 const ProjectCreate = (props) => {
   const [projectsData, setProjectsData] = useState({});
   const history = useHistory();
-  
+  const pageTitle = 'Add new project'
   const handleSubmitNewProject = async (project) => {
     setProjectsData(project)
     const createdAt = new Date();
@@ -28,7 +28,7 @@ const ProjectCreate = (props) => {
   return (
     <PageLayout>
       <MDBContainer>
-        <ProjectComponent project={projectsData} sendData={handleSubmitNewProject}/>
+        <ProjectComponent pageTitle={pageTitle} project={projectsData} sendData={handleSubmitNewProject}/>
       </MDBContainer>
     </PageLayout>
   );
