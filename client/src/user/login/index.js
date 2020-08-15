@@ -16,7 +16,9 @@ const Login = (props) => {
       setError(error);
     } else {
       setError(null);
-      appContext.loginUser(email, password);
+      
+     await appContext.loginUser(email, password);
+     setError('Username or password missmatch');
     }
   }
 
@@ -50,6 +52,11 @@ const Login = (props) => {
                 value={password}
                 required
               />
+              {
+              error?
+              (
+              <div className="text-danger">{error}</div>
+              ):(null)}
               <div className="text-center mt-4">
                 <MDBBtn className="white-text" color="default" type="submit">Login</MDBBtn>
               </div>

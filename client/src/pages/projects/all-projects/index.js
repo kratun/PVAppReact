@@ -58,9 +58,12 @@ const AllProjects = () => {
             ...projectsRes[projectId]
           })};
           
+          const displayedLength = 100
           projects.forEach((p)=>{
             if(p.description){
-              p.description = p.description.slice(0,100).trim() +'...'
+              p.description = 
+                (p.description.length > displayedLength) ? 
+                  (p.description.slice(0,100).trim() +'...'):(p.description)
             }
           })
 
@@ -75,37 +78,41 @@ const AllProjects = () => {
 
   return (
     <PageLayout>
-        <MDBContainer className={styles['padding-bottom']}>
-            <MDBRow className="no-gutters" center>
-              <MDBCol md="12" className="my-3 mx-auto">
-                <MDBNavLink to="/project/create" className={styles.link}>
-                  <MDBBtn className="white-text" color="primary">Add project</MDBBtn>
-                </MDBNavLink> 
-              </MDBCol>
-            </MDBRow>
-            
-            <MDBRow className="no-gutters" center>
-              <MDBCol md="12" className="my-3 mx-auto">
-                <div className="input-group form-lg form-1 pl-0">
-                  <input 
-                    type="search"
-                    name="search"
-                    value={search || ''}
-                    id="search"
-                    className="form-control"
-                    onChange={updateFeildsData}
-                    placeholder="Улица и номер"
-                    aria-label="Search address"
-                  />
+      <MDBContainer className={styles['padding-bottom']}>
+        <MDBContainer className={styles['side-margins']}>
+          <MDBRow className="no-gutters" center>
+            <MDBCol md="12" className="my-3 mx-auto">
+              <MDBNavLink to="/project/create" className={styles.link}>
+                <MDBBtn className="white-text" color="primary">Add project</MDBBtn>
+              </MDBNavLink> 
+            </MDBCol>
+          </MDBRow>
+        </MDBContainer>
+        <MDBContainer className={styles['side-margins']}>
+          <MDBRow className="no-gutters" center>
+            <MDBCol md="12" className="my-3 mx-auto">
+              <div className="input-group form-lg form-1 pl-0">
+                <input 
+                  type="search"
+                  name="search"
+                  value={search || ''}
+                  id="search"
+                  className="form-control"
+                  onChange={updateFeildsData}
+                  placeholder="Search by project"
+                  aria-label="Search address"
+                />
 
-                  <div className="input-group-append">
-                    <span className="input-group-text lighten-3" id="basic-text1">
-                      <MDBIcon className="text-white" icon="search" />
-                    </span>
-                  </div>
+                <div className="input-group-append">
+                  <span className="input-group-text lighten-3" id="basic-text1">
+                    <MDBIcon className="text-white" icon="search" />
+                  </span>
                 </div>
-              </MDBCol>
-            </MDBRow>
+              </div>
+            </MDBCol>
+          </MDBRow>
+        </MDBContainer>
+          
         <MDBRow className="mt-5">
           <MDBCol lg="12" md="12">
             {projectsList.length > 0? 
@@ -126,7 +133,13 @@ const AllProjects = () => {
                               waves
                             />
                             <MDBCardBody>
-                              <MDBCardTitle>{project.title}</MDBCardTitle>
+                              <MDBCardTitle>
+                                  Project:
+                                  </MDBCardTitle>
+                                  <MDBCardTitle className={styles['title-padding']}> 
+                                  {project.title}
+                                
+                              </MDBCardTitle>
                               <MDBCardText>
                                 {project.description}
                               </MDBCardText>

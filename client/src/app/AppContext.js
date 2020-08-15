@@ -17,9 +17,13 @@ export const AppProvider = ({ children }) => {
     }, []);
 
     const loginUser = async (email, password) => {
-        await login(email, password);
-
-        setIsLoggedIn(true);
+        const data = await login(email, password);
+        if(data.error){
+            setIsLoggedIn(false);
+            
+        }else{
+            setIsLoggedIn(true);
+        }
     };
     
     const logoutUser = () => {
