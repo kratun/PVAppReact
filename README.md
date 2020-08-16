@@ -5,6 +5,13 @@ Before you start the project add databse settings in file db-constants:</br>
 1. API_AUTH_BASE_URL = '' // URL used for Register and Login in firebase</br>
 2. API_BASE_URL = '' // URL used to access DB in firebase</br>
 3. API_KEY = '' // Firebase Api KEY</br>
+4. db rules:
+{
+  "rules": {
+    ".read": true,
+    ".write": true
+  }
+}
 
 In the project directory, you can run:
 
