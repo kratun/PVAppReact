@@ -37,34 +37,34 @@ const CalculatorResult = ({ project, sendData }) => {
     return project.kWPPerHour*1363;
   }
   return (
-    <MDBContainer>
+    <MDBContainer className="mt-12">
       {
         project ? (
-          <MDBContainer>
-            <MDBRow className={styles['top-margin']}>
-              <MDBCol>
+          <MDBContainer className={styles['card-padding']}>
+            <MDBRow className="mt-12">
+              <MDBCol md="8 mx-auto">
                 <MDBContainer
                   header='Reversed card'
                   className='justify-content-center d-flex'
                 >
                   <div className={styles.padding}>
                   <MDBRow>
-                    <h1>
+                    <h2>
                       Result for:
-                    </h1>
+                    </h2>
                   </MDBRow>
                   <MDBRow>
-                    <h1>
+                    <h3>
                       {project.username}
-                    </h1>
+                    </h3>
                   </MDBRow>
                     
                   </div>
                 </MDBContainer>
               </MDBCol>
             </MDBRow>
-            <MDBRow className={styles['padding-bottom']}>
-              <MDBCol>
+            <MDBRow className="mt-12">
+              <MDBCol md="10 mx-auto">
                 <MDBContainer
                   header='Reversed card'
                   className='justify-content-center d-flex'
@@ -73,9 +73,9 @@ const CalculatorResult = ({ project, sendData }) => {
                   <MDBCard reverse>
                   {/* kWPPerHour, address, invesmentPurpose, installmentPlace, hasSlope, username */}
                     <MDBCardBody cascade>
-                    <MDBRow>
-                          <MDBCol><MDBCardText>Investments amount:</MDBCardText></MDBCol>
-                          <MDBCol><MDBCardText>{amount} $</MDBCardText></MDBCol>
+                    <MDBRow className="mt-12">
+                          <MDBCol md="6 mx-auto"><MDBCardText>Investments amount:</MDBCardText></MDBCol>
+                          <MDBCol md="6 mx-auto"><MDBCardText>{amount} $</MDBCardText></MDBCol>
                       </MDBRow>
                       <MDBRow>
                           <MDBCol><MDBCardText>Investments address:</MDBCardText></MDBCol>
@@ -103,7 +103,7 @@ const CalculatorResult = ({ project, sendData }) => {
                         
                         <MDBBtn onClick={handleCreateNewOffer} className="white-text" color="primary">Add new data</MDBBtn>
 
-                        <MDBBtn onClick={handleGetOffer} className="white-text" color="primary">Get New Offer</MDBBtn>
+                        <MDBBtn onClick={handleGetOffer} className="white-text" color="primary">Ask Offer</MDBBtn>
                       </MDBRow>
                       
                     </MDBCardBody>
