@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import { useHistory } from "react-router-dom"
+import {AddOffer} from '../../../services/offer-service'
 
 import { 
   MDBContainer, 
@@ -15,7 +17,7 @@ import styles from './index.module.css';
 
 const CalculatorResult = ({ project, sendData }) => {
   const [amount, setAmount] = useState((project.kWPPerHour*1363) || 0);
-  
+  const history = useHistory();
   const handleChangeInput = (e) => {
     e.preventDefault();
     
@@ -28,9 +30,13 @@ const CalculatorResult = ({ project, sendData }) => {
     sendData(true)
   }
 
-  const handleGetOffer = (e) =>{
+  const handleGetOffer = async(e) =>{
     e.preventDefault();
-    
+    AddOffer(project)
+    const offerSaved = await AddOffer(project);
+    if(offerSaved){
+      history.push('/projects');
+    }
     sendData(true)
   }
   const getAmount =()=>{

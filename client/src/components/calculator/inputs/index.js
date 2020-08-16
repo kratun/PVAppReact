@@ -9,7 +9,7 @@ const CalculatorInput = (props) => {
   const pageTitle = props.pageTitle;
   const [kWPPerHour, setKWPPerHour] = useState(props.project.kWPPerHour || 20);
   const [address, setAddress] = useState(props.project.address);
-  const [installmentPlace, setInstallmentPlace] = useState(props.project.installmentPlace||INVESTMENT_PURPOSES[0].label);
+  const [installmentPlace, setInstallmentPlace] = useState(props.project.installmentPlace||INSTALLMENT_PLACE[0].label);
   const [errorAddress, setErrorAddress] = useState(null);
   const [invesmentPurpose, setInvesmentPurpose] = useState(props.project.invesmentPurpose || INVESTMENT_PURPOSES[0].label);
   const [hasSlope, setHasSlope] = useState(props.project.hasSlope|| YES_NO[0].label);
