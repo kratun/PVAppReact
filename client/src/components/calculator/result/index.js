@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import { 
   MDBContainer, 
@@ -7,8 +7,6 @@ import {
   MDBBtn,  
   MDBCard, 
   MDBCardBody, 
-  MDBCardImage,
-  MDBCardTitle,
   MDBCardText,
   
 } from 'mdbreact';
@@ -16,18 +14,28 @@ import {
 import styles from './index.module.css';
 
 const CalculatorResult = ({ project, sendData }) => {
+  const [amount, setAmount] = useState((project.kWPPerHour*1363) || 0);
+  
   const handleChangeInput = (e) => {
     e.preventDefault();
     
     sendData(false)
   }
   
-  const handleGetNewOffer = (e) =>{
+  const handleCreateNewOffer = (e) =>{
     e.preventDefault();
     
     sendData(true)
   }
-  
+
+  const handleGetOffer = (e) =>{
+    e.preventDefault();
+    
+    sendData(true)
+  }
+  const getAmount =()=>{
+    return project.kWPPerHour*1363;
+  }
   return (
     <MDBContainer>
       {
@@ -42,12 +50,12 @@ const CalculatorResult = ({ project, sendData }) => {
                   <div className={styles.padding}>
                   <MDBRow>
                     <h1>
-                      Result
+                      Result for:
                     </h1>
                   </MDBRow>
                   <MDBRow>
                     <h1>
-                      {project.title}
+                      {project.username}
                     </h1>
                   </MDBRow>
                     
@@ -63,27 +71,40 @@ const CalculatorResult = ({ project, sendData }) => {
                 >
                   
                   <MDBCard reverse>
-                    <MDBCardImage
-                      zoom
-                      cascade
-                      className='img-fluid'
-                      src={project.imgUrl}
-                      waves
-                    />
+                  {/* kWPPerHour, address, invesmentPurpose, installmentPlace, hasSlope, username */}
                     <MDBCardBody cascade>
-                      <MDBCardTitle>{project.title}</MDBCardTitle>
-                      <MDBCardText>
+                    <MDBRow>
+                          <MDBCol><MDBCardText>Investments amount:</MDBCardText></MDBCol>
+                          <MDBCol><MDBCardText>{amount} $</MDBCardText></MDBCol>
+                      </MDBRow>
+                      <MDBRow>
+                          <MDBCol><MDBCardText>Investments address:</MDBCardText></MDBCol>
+                          <MDBCol><MDBCardText>{project.address}</MDBCardText></MDBCol>
+                      </MDBRow>
+                      <MDBRow>
+                          <MDBCol><MDBCardText>Investments purpose:</MDBCardText></MDBCol>
+                          <MDBCol><MDBCardText>{project.invesmentPurpose}</MDBCardText></MDBCol>
+                      </MDBRow>
+                      <MDBRow>
+                          <MDBCol><MDBCardText>Installment place:</MDBCardText></MDBCol>
+                          <MDBCol><MDBCardText>{project.installmentPlace}</MDBCardText></MDBCol>
+                      </MDBRow>
+                      <MDBRow>
+                          <MDBCol><MDBCardText>Installment place has slope:</MDBCardText></MDBCol>
+                          <MDBCol><MDBCardText>{project.hasSlope}</MDBCardText></MDBCol>
+                      </MDBRow>
+                      <MDBRow>
+                          <MDBCol><MDBCardText>Installment max kWp per hour:</MDBCardText></MDBCol>
+                          <MDBCol><MDBCardText>{project.kWPPerHour}</MDBCardText></MDBCol>
+                      </MDBRow>
                       
-                          Investments amount: {project.amount} $
-                          </MDBCardText>
-                          <MDBCardText>
-                          {project.description}
-                      
-                      </MDBCardText>
-                      
+                      <MDBRow>
                         <MDBBtn onClick={handleChangeInput} className="white-text" color="primary">Back</MDBBtn>
-                      
-                        <MDBBtn onClick={handleGetNewOffer} className="white-text" color="primary">Get New Offer</MDBBtn>
+                        
+                        <MDBBtn onClick={handleCreateNewOffer} className="white-text" color="primary">Add new data</MDBBtn>
+
+                        <MDBBtn onClick={handleGetOffer} className="white-text" color="primary">Get New Offer</MDBBtn>
+                      </MDBRow>
                       
                     </MDBCardBody>
                   </MDBCard>

@@ -6,9 +6,11 @@ import CalculatorInput from '../../../components/calculator/inputs'
 import CalculatorResult from '../../../components/calculator/result'
 
 
-const Calculator = ({ match }) => {
+const Calculator = (props) => {
     const [projectsData, setProjectsData] = useState({});
     const [viewResult, setViewResult] = useState(false);
+    const pageTitleInput = 'Calculate the approximate value of the investment';
+    const pageTitleResult = 'Аpproximate value of the investment';
     
     const getData = (project)=>{
         
@@ -21,7 +23,7 @@ const Calculator = ({ match }) => {
         if(clearData){
             setProjectsData({})
         }
-        
+        console.log(projectsData, 'projectsData')
         setViewResult(false)
     }
   
@@ -29,9 +31,9 @@ const Calculator = ({ match }) => {
       <PageLayout>
         <MDBContainer>
             {viewResult?(
-                <CalculatorResult project={projectsData} sendData={backToInputData}/>
+                <CalculatorResult pageTitle = {pageTitleResult} project={projectsData} sendData={backToInputData}/>
             ):(
-                <CalculatorInput project={projectsData} sendData={getData}/>
+                <CalculatorInput pageTitle = {pageTitleInput} project={projectsData} sendData={getData}/>
             )}
         </MDBContainer>
       </PageLayout>

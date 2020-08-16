@@ -1,166 +1,168 @@
 import React, { useState, useEffect } from "react";
-import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCardImage, MDBCard } from 'mdbreact';
+import { MDBContainer, MDBRow, MDBCol, MDBBtn } from 'mdbreact';
 
 import styles from './index.module.css';
+import {KWP_ARR, INVESTMENT_PURPOSES, INSTALLMENT_PLACE, YES_NO} from '../../../utils/constants-calculator'
 
 const CalculatorInput = (props) => {
-  const [projectsData, setProjectsData] = useState({});
-  
+  //const [projectsData, setProjectsData] = useState({});
+  const pageTitle = props.pageTitle;
+  const [kWPPerHour, setKWPPerHour] = useState(props.project.kWPPerHour || 20);
+  const [address, setAddress] = useState(props.project.address);
+  const [installmentPlace, setInstallmentPlace] = useState(props.project.installmentPlace||INVESTMENT_PURPOSES[0].label);
+  const [errorAddress, setErrorAddress] = useState(null);
+  const [invesmentPurpose, setInvesmentPurpose] = useState(props.project.invesmentPurpose || INVESTMENT_PURPOSES[0].label);
+  const [hasSlope, setHasSlope] = useState(props.project.hasSlope|| YES_NO[0].label);
+
   useEffect(() => {
    
     const project = props.project
     
     if (project) {
-        setProjectsData(project);
+      console.log(project.kWPPerHour,'project')
+      if(project.kWPPerHour){setKWPPerHour(project.kWPPerHour)}
+      if(project.address){setAddress(project.address)}
+      if(project.installmentPlace){setInstallmentPlace(project.installmentPlace)}
+      if(project.invesmentPurpose){setInvesmentPurpose(project.invesmentPurpose)}
+      if(project.hasSlope){setHasSlope(project.hasSlope)}
     }
     
-}, [props]);
+  }, [props,kWPPerHour, address, installmentPlace, hasSlope, invesmentPurpose]);
 
-  const updateFeildsData = ({ target }) => {
+  const validateAddress = (data)=>{
+        
+    const trimmedValue = data.trim();
     
-    const { name, value } = target;
-    const newData = { ...projectsData, [name]: value };
-
-    setProjectsData(newData);
-  };
-
-  const trimmedValue = ({target}) =>{
+    const titleLengthMin = 5
+    const titleLengthMax = 200
     
-    const { name, value } = target;
-    const trimmedValue = value.toString().trim();
-    const newData = { ...projectsData, [name]: trimmedValue };
-
-    setProjectsData(newData);
-  };
-
+    if((trimmedValue.length < titleLengthMin) || (trimmedValue.length > titleLengthMax)){
+      const errMsg = `Address should be between ${titleLengthMin} and ${titleLengthMax} characters!`
+      setErrorAddress(errMsg);
+    }
+    else{
+      setErrorAddress(null)
+    }
+    setAddress(trimmedValue);
+  }
+  
   const handleSubmitCalculationInputs = async (e) => {
     e.preventDefault();
-    const canProceed = (title && description && imgUrl && amount)
+    const canProceed = (!errorAddress) //!errorTitle && !errorDescription && !errorImgUrl && !errorAmount && 
     if(!canProceed){
       return
     }
+    const user = JSON.parse(localStorage.getItem('pvStorage'))
+    const username = user.email
+ 
+    const payload = {kWPPerHour, address, invesmentPurpose, installmentPlace, hasSlope, username};//title, description, imgUrl, amount, 
     
-    const payload = {title, description, imgUrl, amount};
-    
+    console.log('payload',payload)
+
     props.sendData(payload)
     
   }
 
-  const {
-    title,
-    description,
-    imgUrl,
-    amount
-  } = projectsData;
+  const handleChangeKWPPerHour = (e)=>{
+    setKWPPerHour(e.target.value)
+  }
+
+  const handleChangeInvestmentPurpose = (e)=>{
+    console.log(e.target.value, 'setInvesmentPurpose')
+    setInvesmentPurpose(e.target.value)
+  }
+  const handleChangeInstallmentPlace = (e)=>{
+    setInstallmentPlace(e.target.value)
+  }
+  const handleChangeHasSlope = (e)=>{
+    setHasSlope(e.target.value)
+  }
 
   return (
     <MDBContainer className={styles['padding-bottom']}>
       <MDBRow className="mt-8">
         
-        <MDBCol md="6 mx-auto">
-        <div className="h4 text-center my-4">Add Project Data</div>
+      <MDBCol md="6 mx-auto">
+      <div className="h4 text-center my-4">{pageTitle}</div>
         <form onSubmit={handleSubmitCalculationInputs}> 
-            <div className='form-row'>
+        <div className='form-row'>
+              
               <div className='form-group col-md-12'>
-                <label htmlFor="title" className="grey-text">
-                  Title
+                <label htmlFor="address">
+                  Investments address
                 </label>
                 <input
                   type="text"
-                  name="title"
-                  value={title || ''}
-                  id="title"
+                  name="address"
+                  value={address || ''}
+                  id="address"
                   className="form-control"
-                  onChange={updateFeildsData}
-                  onBlur = {trimmedValue}
+                  onChange={(e)=>{setAddress(e.target.value)}}
+                  onBlur = {(e)=> {validateAddress(e.target.value)}}
                   required
                 />
+                {
+                  (errorAddress)? (<div className="text-danger">{errorAddress}</div>):(null)
+                }
               </div>
             </div>
             <div className='form-row'>
-              <div className='form-group col-md-12'>
-                <label htmlFor="imgUrl" className="grey-text mt-4">
-                  Image Url
-                </label>
-                <input
-                  type="text"
-                  id="imgUrl"
-                  name="imgUrl"
-                  value={imgUrl || ''}
-                  className="form-control"
-                  onChange={updateFeildsData}
-                  onBlur = {trimmedValue}
-                  required
-                />
-              </div>
-            </div>
-            <div className='form-row'>
-              <div className='form-group col-md-12'>
-                <label htmlFor="amount" className="grey-text mt-4">
-                  Investments Amount
-                </label>
+              <div className='form-group col-md-6'>
+                <label htmlFor="investmentPurpose">Investment purpose</label>
                 
-                  <input
-                    type="number"
-                    id="amount"
-                    name="amount" 
-                    precision={2}
-                    step={0.01} 
-                    min={0} 
-                    value={amount || 0} 
-                    className='form-control'
-                    onChange={updateFeildsData} 
-                  />
-                
+                <select className="browser-default custom-select" id="investmentPurpose" name="investmentPurpose" defaultValue={invesmentPurpose} onChange={handleChangeInvestmentPurpose}>
+                  {
+                  INVESTMENT_PURPOSES? INVESTMENT_PURPOSES.map((e)=>{return<option key={e.id} name={e.id} value={e.id}>{e.label}</option>}):null
+                  }
+                  
+                </select>
               </div>
             </div>
             <div className='form-row'>
-              <div className='form-group col-md-12'>
-                <label htmlFor="description" className="grey-text mt-4">
-                  Description
-                </label>
-                <textarea 
-                  type="text"
-                  id="description"
-                  name="description"
-                  value={description || ''}
-                  className="form-control"
-                  rows="5"
-                  onChange={updateFeildsData}
-                  onBlur = {trimmedValue}
-                  required
-                ></textarea>
+              <div className='form-group col-md-6'>
+                <label htmlFor="installmentPlace">Installment Place</label>
+                
+                <select className="browser-default custom-select" id="installmentPlace" name="installmentPlace" defaultValue={installmentPlace} onChange={handleChangeInstallmentPlace}>
+                  {
+                  INSTALLMENT_PLACE? INSTALLMENT_PLACE.map((e)=>{return<option key={e.id} name={e.id} value={e.id}>{e.label}</option>}):null
+                  }
+                  
+                </select>
+              </div>
+            {/* </div>
+            <div className='form-row'> */}
+              <div className='form-group col-md-6'>
+                <label htmlFor="hasSlope">Has Slope</label>
+                
+                <select className="browser-default custom-select" id="hasSlope" name="hasSlope" defaultValue={hasSlope} onChange={handleChangeHasSlope}>
+                  {
+                  YES_NO? YES_NO.map((e)=>{return<option key={e.id} name={e.id} value={e.id}>{e.label}</option>}):null
+                  }
+                  
+                </select>
               </div>
             </div>
+            <div className='form-row'>
+              <div className='form-group col-md-6'>
+                <label htmlFor="kWPPerHour">Installments max kWp per hour</label>
+                
+                <select className="browser-default custom-select" id="kWPPerHour" name="kWPPerHour" defaultValue={kWPPerHour} onChange={handleChangeKWPPerHour}>
+                  {
+                  KWP_ARR? KWP_ARR.map((e, index)=>{return<option key={index} name={index} value={e}>{e}</option>}):null
+                  }
+                  
+                </select>
+              </div>
+            </div>
+            
             <div className="text-center mt-4">
-              <MDBBtn className="white-text" color="default" type="submit">Get Offer</MDBBtn>
+              <MDBBtn className="white-text" color="default" type="submit">Get offer</MDBBtn>
             </div>
           </form>
         
         </MDBCol> 
 
-        <MDBCol md="6 mx-auto">
-          <p className="h4 text-center my-4">Image Preview</p>
-          
-            {
-              imgUrl?
-              (
-                <MDBCard cascade narrow ecommerce>
-                  <MDBCardImage
-                      zoom
-                      cascade
-                      className='img-fluid'
-                      src={imgUrl}
-                      alt = "Logo"
-                      waves
-                    />
-                </MDBCard>
-              ):(
-                null
-              )
-            }
-            
-        </MDBCol>
+        
       </MDBRow>
     </MDBContainer>
   );

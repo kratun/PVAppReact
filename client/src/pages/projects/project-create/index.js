@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom"
-import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCardImage, MDBCard } from 'mdbreact';
+import { MDBContainer } from 'mdbreact';
 
 // import styles from './index.module.css';
 import PageLayout from '../../layout'
@@ -12,6 +12,7 @@ const ProjectCreate = (props) => {
   const [projectsData, setProjectsData] = useState({});
   const history = useHistory();
   const pageTitle = 'Add new project'
+  
   const handleSubmitNewProject = async (project) => {
     setProjectsData(project)
     const createdAt = new Date();

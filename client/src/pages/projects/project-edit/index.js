@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { useHistory } from "react-router-dom"
-import { MDBContainer, MDBRow, MDBCol, MDBBtn,MDBCardImage, MDBCard } from 'mdbreact';
+import { MDBContainer } from 'mdbreact';
 
 import { EditProject, GetProjectDetails} from '../../../services/project-service';
 import PageLayout from '../../layout'
